@@ -1,0 +1,6 @@
+@MyGarageFinderServer_HostAddress = http://localhost:5263
+
+GET {{MyGarageFinderServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
