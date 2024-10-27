@@ -119,10 +119,19 @@ CREATE TABLE Appointment (
     FOREIGN KEY (VehicleUserID) REFERENCES VehicleUser(VehicleUserID),
     FOREIGN KEY (StatusID) REFERENCES AppointmentStatus(StatusID)
 );
-Select * from users
+Select * from AppointmentStatus
 
 INSERT INTO UserStatus VALUES('User')
 INSERT INTO UserStatus VALUES('Manager')
+
+INSERT INTO MessageSender VALUES('User')
+INSERT INTO MessageSender VALUES('GarageManager')
+
+INSERT INTO AppointmentStatus VALUES('pending')
+INSERT INTO AppointmentStatus VALUES('available')
+INSERT INTO AppointmentStatus VALUES('taken')
+
+
 
 
 Insert Into Users Values('admin', 'admin', 'kuku@kuku.com', '1234', 1)
