@@ -21,7 +21,7 @@ public partial class User
     [StringLength(50)]
     public string? Email { get; set; }
 
-    public int LicenseNumber { get; set; }
+    public string? LicenseNumber { get; set; }
 
     public DateOnly? DateOfBirth { get; set; }
 

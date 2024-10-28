@@ -6,7 +6,7 @@
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public int LicenseNumber { get; set; }
+        public string LicenseNumber { get; set; } = null!;
         public string UserPassword { get; set; } = null!; 
         public int UserStatusId { get; set; }
         public string Phone { get; set; }

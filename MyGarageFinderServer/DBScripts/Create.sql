@@ -20,7 +20,7 @@ CREATE TABLE Users (
     FirstName NVARCHAR(20) NOT NULL,
     LastName NVARCHAR(20) NOT NULL,
     Email NVARCHAR(50) NOT NULL,
-    LicenseNumber INT NOT NULL,
+    LicenseNumber NVARCHAR(50) NOT NULL,
     UserPassword NVARCHAR(15),
     UserStatusID INT,
     GarageLicense INT,
@@ -115,7 +115,7 @@ CREATE TABLE Appointment (
     FOREIGN KEY (VehicleUserID) REFERENCES VehicleUser(VehicleUserID),
     FOREIGN KEY (StatusID) REFERENCES AppointmentStatus(StatusID)
 );
-Select * from AppointmentStatus
+Select * from UserStatus
 
 INSERT INTO UserStatus VALUES('User')
 INSERT INTO UserStatus VALUES('Manager')

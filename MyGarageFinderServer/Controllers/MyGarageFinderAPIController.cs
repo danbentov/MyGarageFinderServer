@@ -23,4 +23,33 @@ public class MyGarageFinderAPIController : ControllerBase
         return Ok("Server Responded Successfully");
     }
 
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] MyGarageFinderServer.DTO.LoginInfo loginDto)
+    {
+        try
+        {
+            HttpContext.Session.Clear(); //Logout any previous login attempt
+
+            //Get model user class from DB with matching email. 
+            MyGarageFinderServer.Models.User? modelsUser = context.GetUser(loginDto.LicenseNumber);
+
+            //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
+            if (modelsUser == null || modelsUser.UserPassword != loginDto.UserPassword)
+            {
+                return Unauthorized();
+            }
+
+            //Login suceed! now mark login in session memory!
+            HttpContext.Session.SetString("loggedInUser", modelsUser.LicenseNumber);
+
+            MyGarageFinderServer.DTO.UserDTO dtoUser = new MyGarageFinderServer.DTO.UserDTO(modelsUser);
+            return Ok(dtoUser);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+
 }
