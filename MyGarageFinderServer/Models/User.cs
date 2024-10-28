@@ -21,7 +21,7 @@ public partial class User
     [StringLength(50)]
     public string? Email { get; set; }
 
-    public int? LicenseNumber { get; set; }
+    public int LicenseNumber { get; set; }
 
     public DateOnly? DateOfBirth { get; set; }
 
@@ -29,7 +29,7 @@ public partial class User
     public string? UserPassword { get; set; }
 
     [Column("UserStatusID")]
-    public int? UserStatusId { get; set; }
+    public int UserStatusId { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? RegistrationDate { get; set; }
@@ -37,7 +37,7 @@ public partial class User
     [StringLength(15)]
     public string? Phone { get; set; }
 
-    public int? GarageLicense { get; set; }
+    public int GarageLicense { get; set; }
 
     [InverseProperty("User")]
     public virtual ICollection<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();

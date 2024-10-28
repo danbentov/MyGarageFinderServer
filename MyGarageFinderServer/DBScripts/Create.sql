@@ -17,27 +17,24 @@ CREATE TABLE UserStatus (
 
 CREATE TABLE Users (
     UserID INT PRIMARY KEY IDENTITY,
-    FirstName NVARCHAR(20),
-    LastName NVARCHAR(20),
-    Email NVARCHAR(50),
-    LicenseNumber INT,
-    DateOfBirth DATE,
+    FirstName NVARCHAR(20) NOT NULL,
+    LastName NVARCHAR(20) NOT NULL,
+    Email NVARCHAR(50) NOT NULL,
+    LicenseNumber INT NOT NULL,
     UserPassword NVARCHAR(15),
     UserStatusID INT,
-    RegistrationDate DATETIME,
-    Phone NVARCHAR(15),
     GarageLicense INT,
     FOREIGN KEY (UserStatusID) REFERENCES UserStatus(StatusID)
 );
 
 CREATE TABLE Vehicle (
     LicensePlate INT PRIMARY KEY,
-    Model NVARCHAR(100),
-    VehicleYear INT,
-    FuelType NVARCHAR(50),
+    Model NVARCHAR(100) NOT NULL,
+    VehicleYear INT NOT NULL,
+    FuelType NVARCHAR(50) NOT NULL,
     Color NVARCHAR(20),
-    Manufacturer NVARCHAR(50),
-    CurrentMileage INT,
+    Manufacturer NVARCHAR(50) NOT NULL,
+    CurrentMileage INT NOT NULL,
     ImageURL NVARCHAR(200)
 );
 
@@ -62,7 +59,7 @@ CREATE TABLE Garage (
     SpecializationCode INT,
     Specialization NVARCHAR(50),
     GarageManager NVARCHAR(50),
-    GarageLicense INT,
+    GarageLicense INT NOT NULL,
     TestTime DATE,
     WorkingHours NVARCHAR(50)
 );
@@ -74,12 +71,11 @@ CREATE TABLE MessageSender (
 
 CREATE TABLE ChatMessage (
     MessageID INT PRIMARY KEY IDENTITY,
-    MessageText TEXT,
+    MessageText TEXT NOT NULL,
     UserID INT,
     GarageID INT,
     MessageSenderID INT,
     MessageTimestamp DATETIME,
-    IsRead INT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (GarageID) REFERENCES Garage(GarageID),
     FOREIGN KEY (MessageSenderID) REFERENCES MessageSender(MessageSenderID)
@@ -87,8 +83,8 @@ CREATE TABLE ChatMessage (
 
 CREATE TABLE Review (
     ReviewID INT PRIMARY KEY IDENTITY,
-    Rating INT,
-    ReviewDescription TEXT,
+    Rating INT NOT NULL,
+    ReviewDescription TEXT NOT NULL,
     UserID INT,
     GarageID INT,
     ReviewTimestamp DATETIME,
@@ -99,7 +95,7 @@ CREATE TABLE Review (
 CREATE TABLE GarageImage (
     GarageImageID INT PRIMARY KEY IDENTITY,
     GarageID INT,
-    ImageURL NVARCHAR(200),
+    ImageURL NVARCHAR(200) NOT NULL,
     FOREIGN KEY (GarageID) REFERENCES Garage(GarageID)
 );
 
@@ -114,7 +110,7 @@ CREATE TABLE Appointment (
     VehicleUserID INT,
     AppointmentDate DATETIME,
     StatusID INT,
-    Description TEXT,
+    AppoitmentDescription TEXT,
     FOREIGN KEY (GarageID) REFERENCES Garage(GarageID),
     FOREIGN KEY (VehicleUserID) REFERENCES VehicleUser(VehicleUserID),
     FOREIGN KEY (StatusID) REFERENCES AppointmentStatus(StatusID)
@@ -134,8 +130,7 @@ INSERT INTO AppointmentStatus VALUES('taken')
 
 
 
-Insert Into Users Values('admin', 'admin', 'kuku@kuku.com', '1234', 1)
-Go
+
 -- Create a login for the admin user
 CREATE LOGIN [MyGarageFinderAdminLogin] WITH PASSWORD = 'DAN1706';
 Go
