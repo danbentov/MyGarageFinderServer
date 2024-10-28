@@ -23,6 +23,8 @@ public class MyGarageFinderAPIController : ControllerBase
         return Ok("Server Responded Successfully");
     }
 
+
+
     [HttpPost("login")]
     public IActionResult Login([FromBody] MyGarageFinderServer.DTO.LoginInfo loginDto)
     {
@@ -42,6 +44,35 @@ public class MyGarageFinderAPIController : ControllerBase
             //Login suceed! now mark login in session memory!
             HttpContext.Session.SetString("loggedInUser", modelsUser.LicenseNumber);
 
+            MyGarageFinderServer.DTO.UserDTO dtoUser = new MyGarageFinderServer.DTO.UserDTO(modelsUser);
+            return Ok(dtoUser);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+
+
+    [HttpPost("register")]
+    public IActionResult Register([FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
+    {
+        try
+        {
+            HttpContext.Session.Clear(); //Logout any previous login attempt
+
+            //Create model user class
+            MyGarageFinderServer.Models.User modelsUser = userDto.GetModels();
+            foreach (User u in context.Users)
+            {
+                if (u.LicenseNumber == modelsUser.LicenseNumber)
+                    return Unauthorized();
+            }
+            context.Users.Add(modelsUser);
+            context.SaveChanges();
+
+            //User was added!
             MyGarageFinderServer.DTO.UserDTO dtoUser = new MyGarageFinderServer.DTO.UserDTO(modelsUser);
             return Ok(dtoUser);
         }
