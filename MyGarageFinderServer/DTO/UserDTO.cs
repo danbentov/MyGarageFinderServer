@@ -8,9 +8,9 @@
         public string Email { get; set; } = null!;
         public string LicenseNumber { get; set; } = null!;
         public string UserPassword { get; set; } = null!; 
-        public int UserStatusId { get; set; }
+        public int? UserStatusId { get; set; }
         public string Phone { get; set; }
-        public int GarageLicense { get; set; }
+        public int? GarageLicense { get; set; }
 
         public UserDTO() { }
         public UserDTO(Models.User modelUser)
@@ -22,7 +22,6 @@
             this.LicenseNumber = modelUser.LicenseNumber;
             this.UserPassword = modelUser.UserPassword;
             this.UserStatusId = modelUser.UserStatusId;
-            this.Phone = modelUser.Phone;
             this.GarageLicense = modelUser.GarageLicense;
         }
 
@@ -37,7 +36,6 @@
                 LicenseNumber = this.LicenseNumber,
                 UserPassword = this.UserPassword,
                 UserStatusId = this.UserStatusId,
-                Phone = this.Phone,
                 GarageLicense = this.GarageLicense
             };
 

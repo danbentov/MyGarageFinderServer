@@ -14,7 +14,7 @@ public partial class ChatMessage
     public int MessageId { get; set; }
 
     [Column(TypeName = "text")]
-    public string? MessageText { get; set; }
+    public string MessageText { get; set; } = null!;
 
     [Column("UserID")]
     public int? UserId { get; set; }
@@ -27,8 +27,6 @@ public partial class ChatMessage
 
     [Column(TypeName = "datetime")]
     public DateTime? MessageTimestamp { get; set; }
-
-    public int? IsRead { get; set; }
 
     [ForeignKey("GarageId")]
     [InverseProperty("ChatMessages")]

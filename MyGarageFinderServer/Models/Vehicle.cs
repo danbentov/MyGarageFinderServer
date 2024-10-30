@@ -13,20 +13,20 @@ public partial class Vehicle
     public int LicensePlate { get; set; }
 
     [StringLength(100)]
-    public string? Model { get; set; }
+    public string Model { get; set; } = null!;
 
-    public int? VehicleYear { get; set; }
+    public int VehicleYear { get; set; }
 
     [StringLength(50)]
-    public string? FuelType { get; set; }
+    public string FuelType { get; set; } = null!;
 
     [StringLength(20)]
     public string? Color { get; set; }
 
     [StringLength(50)]
-    public string? Manufacturer { get; set; }
+    public string Manufacturer { get; set; } = null!;
 
-    public int? CurrentMileage { get; set; }
+    public int CurrentMileage { get; set; }
 
     [Column("ImageURL")]
     [StringLength(200)]

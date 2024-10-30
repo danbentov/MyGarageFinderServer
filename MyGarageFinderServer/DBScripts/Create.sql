@@ -27,6 +27,7 @@ CREATE TABLE Users (
     FOREIGN KEY (UserStatusID) REFERENCES UserStatus(StatusID)
 );
 
+
 CREATE TABLE Vehicle (
     LicensePlate INT PRIMARY KEY,
     Model NVARCHAR(100) NOT NULL,
@@ -128,8 +129,8 @@ INSERT INTO AppointmentStatus VALUES('available')
 INSERT INTO AppointmentStatus VALUES('taken')
 
 
-
-
+Insert into Users Values('Yali', 'Kriaf', 'Yk@gmail.com', '54321', '12345',1,23)
+select * from Users
 
 -- Create a login for the admin user
 CREATE LOGIN [MyGarageFinderAdminLogin] WITH PASSWORD = 'DAN1706';
@@ -143,5 +144,5 @@ Go
 ALTER ROLE db_owner ADD MEMBER [MyGarageFinderAdminUser];
 Go
 
--- scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=MyGarageFinderDB;User ID=MyGarageFinderAdminUser;Password=DAN1706;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context MyGarageFinderDbContext -DataAnnotations –force
+-- scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=MyGarageFinderDB;User ID=MyGarageFinderAdminLogin;Password=DAN1706;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context MyGarageFinderDbContext -DataAnnotations –force
 

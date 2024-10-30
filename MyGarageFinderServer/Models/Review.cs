@@ -13,10 +13,10 @@ public partial class Review
     [Column("ReviewID")]
     public int ReviewId { get; set; }
 
-    public int? Rating { get; set; }
+    public int Rating { get; set; }
 
     [Column(TypeName = "text")]
-    public string? ReviewDescription { get; set; }
+    public string ReviewDescription { get; set; } = null!;
 
     [Column("UserID")]
     public int? UserId { get; set; }

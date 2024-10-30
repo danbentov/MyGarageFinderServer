@@ -43,7 +43,7 @@ public partial class Garage
     [StringLength(50)]
     public string? GarageManager { get; set; }
 
-    public int? GarageLicense { get; set; }
+    public int GarageLicense { get; set; }
 
     public DateOnly? TestTime { get; set; }
 

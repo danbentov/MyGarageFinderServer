@@ -26,7 +26,7 @@ public partial class Appointment
     public int? StatusId { get; set; }
 
     [Column(TypeName = "text")]
-    public string? Description { get; set; }
+    public string? AppoitmentDescription { get; set; }
 
     [ForeignKey("GarageId")]
     [InverseProperty("Appointments")]

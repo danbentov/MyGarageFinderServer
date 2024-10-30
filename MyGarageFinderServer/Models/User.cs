@@ -13,31 +13,24 @@ public partial class User
     public int UserId { get; set; }
 
     [StringLength(20)]
-    public string? FirstName { get; set; }
+    public string FirstName { get; set; } = null!;
 
     [StringLength(20)]
-    public string? LastName { get; set; }
+    public string LastName { get; set; } = null!;
 
     [StringLength(50)]
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
-    public string? LicenseNumber { get; set; }
-
-    public DateOnly? DateOfBirth { get; set; }
+    [StringLength(50)]
+    public string LicenseNumber { get; set; } = null!;
 
     [StringLength(15)]
     public string? UserPassword { get; set; }
 
     [Column("UserStatusID")]
-    public int UserStatusId { get; set; }
+    public int? UserStatusId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? RegistrationDate { get; set; }
-
-    [StringLength(15)]
-    public string? Phone { get; set; }
-
-    public int GarageLicense { get; set; }
+    public int? GarageLicense { get; set; }
 
     [InverseProperty("User")]
     public virtual ICollection<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();

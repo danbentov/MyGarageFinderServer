@@ -18,7 +18,7 @@ public partial class GarageImage
 
     [Column("ImageURL")]
     [StringLength(200)]
-    public string? ImageUrl { get; set; }
+    public string ImageUrl { get; set; } = null!;
 
     [ForeignKey("GarageId")]
     [InverseProperty("GarageImages")]
