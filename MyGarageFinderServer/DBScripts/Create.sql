@@ -130,6 +130,8 @@ INSERT INTO AppointmentStatus VALUES('taken')
 
 
 Insert into Users Values('Yali', 'Kriaf', 'Yk@gmail.com', '54321', '12345',1,23)
+Insert into Users Values('Dan', 'Ben Tov', 'DB@gmail.com', '123', '456',2,0)
+
 select * from Users
 
 -- Create a login for the admin user
