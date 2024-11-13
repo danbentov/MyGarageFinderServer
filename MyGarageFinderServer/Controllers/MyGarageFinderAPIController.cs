@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MyGarageFinderServer.DTO;
 using MyGarageFinderServer.Models;
+using System.Collections.ObjectModel;
 
 [Route("api")]
 [ApiController]
@@ -98,7 +100,7 @@ public class MyGarageFinderAPIController : ControllerBase
                     return Ok(vehicleDto);
                 }
             }
-            return Ok(null);
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -146,5 +148,29 @@ public class MyGarageFinderAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet("myvehicles")]
+    public IActionResult GetYourVehicles([FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
+    {
+        try
+        {
+            MyGarageFinderServer.Models.User modelsUser = userDto.GetModels();
+            Collection<Vehicle> userVehicles = context.GetVehicles(modelsUser);
+            Collection<VehicleDTO> userVehiclesDto = new Collection<VehicleDTO>();
+            foreach(Vehicle v in userVehicles)
+            {
+                VehicleDTO vDto = new VehicleDTO(v);
+                userVehiclesDto.Add(vDto);
+            }
+            return Ok(userVehiclesDto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+
 
 }

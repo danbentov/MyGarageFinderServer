@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyGarageFinderServer.Models;
@@ -16,5 +17,19 @@ public partial class MyGarageFinderDbContext : DbContext
     {
         return this.Vehicles.Where(v => v.LicensePlate ==  licenseNumber)
             .FirstOrDefault();
+    }
+
+    public Collection<Vehicle> GetVehicles(User modelUser)
+    {
+        Collection<Vehicle> result = new Collection<Vehicle>();
+        foreach (VehicleUser v in this.VehicleUsers)
+        {
+            if (v.UserId == modelUser.UserId)
+            {
+                Vehicle? vh = GetVehicle(v.VehicleId);
+                result.Add(vh);
+            }
+        }
+        return result;
     }
 }
