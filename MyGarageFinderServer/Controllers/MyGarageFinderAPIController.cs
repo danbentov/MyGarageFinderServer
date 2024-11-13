@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using MyGarageFinderServer.Models;
 
 [Route("api")]
@@ -81,6 +82,41 @@ public class MyGarageFinderAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
 
+    }
+
+    [HttpGet("searchvehicle")]
+    public IActionResult SearchVehicle([FromBody] MyGarageFinderServer.DTO.VehicleLicense licenseDto)
+    {
+        try
+        {
+            string lPlate = licenseDto.LicensePlate;
+            foreach (Vehicle v in context.Vehicles)
+            {
+                if (v.LicensePlate == lPlate)
+                {
+                    MyGarageFinderServer.DTO.VehicleDTO vehicleDto = new MyGarageFinderServer.DTO.VehicleDTO(v);
+                    return Ok(vehicleDto);
+                }
+            }
+            return Ok(null);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("registervehicle")]
+    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleDTO vehicleDto)
+    {
+        MyGarageFinderServer.Models.Vehicle modelVehicle = vehicleDto.GetVehicle();
+        foreach (Vehicle v in context.Vehicles)
+        {
+            if (v.LicensePlate == modelVehicle.LicensePlate)
+            {
+
+            }
+        }
     }
 
 }

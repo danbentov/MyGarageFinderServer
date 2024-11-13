@@ -14,7 +14,8 @@ public partial class VehicleUser
     public int VehicleUserId { get; set; }
 
     [Column("VehicleID")]
-    public int? VehicleId { get; set; }
+    [StringLength(50)]
+    public string? VehicleId { get; set; }
 
     [Column("UserID")]
     public int? UserId { get; set; }

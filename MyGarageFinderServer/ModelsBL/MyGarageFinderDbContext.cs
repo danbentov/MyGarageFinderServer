@@ -11,4 +11,10 @@ public partial class MyGarageFinderDbContext : DbContext
         return this.Users.Where(u => u.LicenseNumber == licenseNumber)
                             .FirstOrDefault();
     }
+
+    public Vehicle? GetVehicle(string licenseNumber)
+    {
+        return this.Vehicles.Where(v => v.LicensePlate ==  licenseNumber)
+            .FirstOrDefault();
+    }
 }

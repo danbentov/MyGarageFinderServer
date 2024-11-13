@@ -10,7 +10,8 @@ namespace MyGarageFinderServer.Models;
 public partial class Vehicle
 {
     [Key]
-    public int LicensePlate { get; set; }
+    [StringLength(50)]
+    public string LicensePlate { get; set; } = null!;
 
     [StringLength(100)]
     public string Model { get; set; } = null!;

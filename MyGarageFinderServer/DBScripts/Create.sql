@@ -29,7 +29,7 @@ CREATE TABLE Users (
 
 
 CREATE TABLE Vehicle (
-    LicensePlate INT PRIMARY KEY,
+    LicensePlate NVARCHAR(50) PRIMARY KEY,
     Model NVARCHAR(100) NOT NULL,
     VehicleYear INT NOT NULL,
     FuelType NVARCHAR(50) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE Vehicle (
 
 CREATE TABLE VehicleUser (
     VehicleUserID INT PRIMARY KEY IDENTITY,
-    VehicleID INT,
+    VehicleID NVARCHAR(50),
     UserID INT,
     FOREIGN KEY (VehicleID) REFERENCES Vehicle(LicensePlate),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
