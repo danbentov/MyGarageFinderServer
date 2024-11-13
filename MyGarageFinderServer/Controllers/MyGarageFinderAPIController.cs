@@ -107,15 +107,43 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
     [HttpPost("registervehicle")]
-    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleDTO vehicleDto)
+    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleDTO vehicleDto, [FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
     {
-        MyGarageFinderServer.Models.Vehicle modelVehicle = vehicleDto.GetVehicle();
-        foreach (Vehicle v in context.Vehicles)
+        try
         {
-            if (v.LicensePlate == modelVehicle.LicensePlate)
-            {
+            
+            MyGarageFinderServer.Models.Vehicle modelVehicle = vehicleDto.GetVehicle();
+            MyGarageFinderServer.Models.User modelsUser = userDto.GetModels();
 
+            bool vehicleExist = false;
+            foreach (Vehicle v in context.Vehicles)
+            {
+                if (v.LicensePlate == modelVehicle.LicensePlate)
+                {
+                    vehicleExist = true;
+                    foreach (VehicleUser vu in context.VehicleUsers)
+                    {
+                        if (vu.UserId == modelsUser.UserId && vu.VehicleId == modelVehicle.LicensePlate)
+                            return BadRequest("You already registered this vehicle !!");
+                    }
+                }
             }
+
+            if (!vehicleExist)
+            {
+                context.Vehicles.Add(modelVehicle);
+            }
+
+            MyGarageFinderServer.Models.VehicleUser VU = new VehicleUser();
+            VU.VehicleId = modelVehicle.LicensePlate;
+            VU.UserId = modelsUser.UserId;
+            context.VehicleUsers.Add(VU);
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 
