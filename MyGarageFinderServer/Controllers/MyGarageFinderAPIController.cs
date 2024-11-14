@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MyGarageFinderServer.DTO;
 using MyGarageFinderServer.Models;
 using System.Collections.ObjectModel;
@@ -109,13 +110,13 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
     [HttpPost("registervehicle")]
-    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleDTO vehicleDto, [FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
+    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleUserDTO vhDTO)
     {
         try
         {
             
-            MyGarageFinderServer.Models.Vehicle modelVehicle = vehicleDto.GetVehicle();
-            MyGarageFinderServer.Models.User modelsUser = userDto.GetModels();
+            MyGarageFinderServer.Models.Vehicle modelVehicle = vhDTO.Vehicle.GetVehicle();
+            MyGarageFinderServer.Models.User modelsUser = vhDTO.User.GetModels();
 
             bool vehicleExist = false;
             foreach (Vehicle v in context.Vehicles)
@@ -163,6 +164,44 @@ public class MyGarageFinderAPIController : ControllerBase
                 userVehiclesDto.Add(vDto);
             }
             return Ok(userVehiclesDto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut("updateuser")]
+    public IActionResult UpdateUser([FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
+    {
+        try
+        {
+            MyGarageFinderServer.Models.User modelsUser = userDto.GetModels();
+            User? currentUserFromDB = context.Users.Where(u => u.LicenseNumber == userDto.LicenseNumber).FirstOrDefault();
+            if (currentUserFromDB == null)
+            {
+                // If no user found with the given license number, return NotFound
+                return NotFound("User not found.");
+            }
+            if (!modelsUser.FirstName.IsNullOrEmpty())
+            {
+                currentUserFromDB.FirstName = modelsUser.FirstName;
+            }
+            if (!modelsUser.LastName.IsNullOrEmpty())
+            {
+                currentUserFromDB.LastName = modelsUser.LastName;
+            }
+            if (!modelsUser.Email.IsNullOrEmpty())
+            {
+                currentUserFromDB.Email = modelsUser.Email;
+            }
+            if (!modelsUser.UserPassword.IsNullOrEmpty())
+            {
+                currentUserFromDB.UserPassword = modelsUser.UserPassword;
+            }
+            context.SaveChanges();
+            MyGarageFinderServer.DTO.UserDTO updatetDtoUser = new MyGarageFinderServer.DTO.UserDTO(currentUserFromDB);
+            return Ok(updatetDtoUser);
         }
         catch (Exception ex)
         {
