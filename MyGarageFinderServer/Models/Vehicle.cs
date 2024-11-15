@@ -16,7 +16,8 @@ public partial class Vehicle
     [StringLength(100)]
     public string Model { get; set; } = null!;
 
-    public int VehicleYear { get; set; }
+    [StringLength(6)]
+    public string VehicleYear { get; set; } = null!;
 
     [StringLength(50)]
     public string FuelType { get; set; } = null!;

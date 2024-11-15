@@ -31,7 +31,7 @@ CREATE TABLE Users (
 CREATE TABLE Vehicle (
     LicensePlate NVARCHAR(50) PRIMARY KEY,
     Model NVARCHAR(100) NOT NULL,
-    VehicleYear INT NOT NULL,
+    VehicleYear NVARCHAR(6) NOT NULL,
     FuelType NVARCHAR(50) NOT NULL,
     Color NVARCHAR(20),
     Manufacturer NVARCHAR(50) NOT NULL,
