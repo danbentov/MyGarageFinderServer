@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.IdentityModel.Tokens;
 using MyGarageFinderServer.DTO;
 using MyGarageFinderServer.Models;
@@ -87,7 +88,7 @@ public class MyGarageFinderAPIController : ControllerBase
 
     }
 
-    [HttpGet("searchvehicle")]
+    [HttpPost("searchvehicle")]
     public IActionResult SearchVehicle([FromBody] MyGarageFinderServer.DTO.VehicleLicense licenseDto)
     {
         try
@@ -116,7 +117,7 @@ public class MyGarageFinderAPIController : ControllerBase
         {
             
             MyGarageFinderServer.Models.Vehicle modelVehicle = vhDTO.Vehicle.GetVehicle();
-            MyGarageFinderServer.Models.User modelsUser = vhDTO.User.GetModels();
+            MyGarageFinderServer.Models.User? modelsUser = context.GetUser(vhDTO.User.LicenseNumber);
 
             bool vehicleExist = false;
             foreach (Vehicle v in context.Vehicles)
@@ -124,11 +125,14 @@ public class MyGarageFinderAPIController : ControllerBase
                 if (v.LicensePlate == modelVehicle.LicensePlate)
                 {
                     vehicleExist = true;
-                    foreach (VehicleUser vu in context.VehicleUsers)
-                    {
-                        if (vu.UserId == modelsUser.UserId && vu.VehicleId == modelVehicle.LicensePlate)
-                            return BadRequest("You already registered this vehicle !!");
-                    }
+                }
+            }
+            if (vehicleExist)
+            {
+                foreach (VehicleUser vu in context.VehicleUsers)
+                {
+                    if (vu.UserId == modelsUser.UserId && vu.VehicleId == modelVehicle.LicensePlate)
+                        return BadRequest("You already registered this vehicle !!");
                 }
             }
 
@@ -136,6 +140,7 @@ public class MyGarageFinderAPIController : ControllerBase
             {
                 context.Vehicles.Add(modelVehicle);
             }
+            context.SaveChanges();
 
             MyGarageFinderServer.Models.VehicleUser VU = new VehicleUser();
             VU.VehicleId = modelVehicle.LicensePlate;
@@ -150,14 +155,14 @@ public class MyGarageFinderAPIController : ControllerBase
         }
     }
 
-    [HttpGet("myvehicles")]
+    [HttpPost("myvehicles")]
     public IActionResult GetYourVehicles([FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
     {
         try
         {
-            MyGarageFinderServer.Models.User modelsUser = userDto.GetModels();
-            Collection<Vehicle> userVehicles = context.GetVehicles(modelsUser);
-            Collection<VehicleDTO> userVehiclesDto = new Collection<VehicleDTO>();
+            MyGarageFinderServer.Models.User modelsUser = context.GetUser(userDto.LicenseNumber);
+            ObservableCollection<Vehicle> userVehicles = context.GetVehicles(modelsUser);
+            ObservableCollection<VehicleDTO> userVehiclesDto = new ObservableCollection<VehicleDTO>();
             foreach(Vehicle v in userVehicles)
             {
                 VehicleDTO vDto = new VehicleDTO(v);

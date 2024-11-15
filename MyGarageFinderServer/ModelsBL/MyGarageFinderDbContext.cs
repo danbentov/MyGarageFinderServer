@@ -19,16 +19,20 @@ public partial class MyGarageFinderDbContext : DbContext
             .FirstOrDefault();
     }
 
-    public Collection<Vehicle> GetVehicles(User modelUser)
+    public ObservableCollection<Vehicle> GetVehicles(User modelUser)
     {
-        Collection<Vehicle> result = new Collection<Vehicle>();
+        ObservableCollection<Vehicle> result = new ObservableCollection<Vehicle>();
+        List<string> list = new List<string>();
         foreach (VehicleUser v in this.VehicleUsers)
         {
             if (v.UserId == modelUser.UserId)
             {
-                Vehicle? vh = GetVehicle(v.VehicleId);
-                result.Add(vh);
+                list.Add(v.VehicleId);
             }
+        }
+        foreach (string v in list)
+        {
+            result.Add(GetVehicle(v));
         }
         return result;
     }
