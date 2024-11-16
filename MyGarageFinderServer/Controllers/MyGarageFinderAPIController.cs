@@ -147,7 +147,8 @@ public class MyGarageFinderAPIController : ControllerBase
             VU.UserId = modelsUser.UserId;
             context.VehicleUsers.Add(VU);
             context.SaveChanges();
-            return Ok();
+            MyGarageFinderServer.DTO.VehicleUserDTO vuDto = new VehicleUserDTO(VU);
+            return Ok(vuDto);
         }
         catch (Exception ex)
         {
@@ -176,7 +177,7 @@ public class MyGarageFinderAPIController : ControllerBase
         }
     }
 
-    [HttpPut("updateuser")]
+    [HttpPost("updateuser")]
     public IActionResult UpdateUser([FromBody] MyGarageFinderServer.DTO.UserDTO userDto)
     {
         try

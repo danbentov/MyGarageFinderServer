@@ -132,6 +132,14 @@ INSERT INTO AppointmentStatus VALUES('taken')
 Insert into Users Values('Yali', 'Kriaf', 'Yk@gmail.com', '54321', '12345',1,23)
 Insert into Users Values('Dan', 'Ben Tov', 'DB@gmail.com', '123', '456',2,0)
 
+Insert into Vehicle Values('4444', 'Civic', '2013', 'gas', 'black','Honda',500,'')
+Insert into Vehicle Values('55555', 'Q3', '2023', 'gas', 'black','Audi',500,'')
+
+Insert into VehicleUser values('4444', 1)
+Insert into VehicleUser values('4444', 2)
+Insert into VehicleUser values('55555', 1)
+Insert into VehicleUser values('55555', 2)
+
 select * from VehicleUser
 
 -- Create a login for the admin user
