@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using MyGarageFinderServer.GarageAPIReaderService;
 using MyGarageFinderServer.Models;
 
 namespace MyGarageFinderServer
@@ -11,8 +12,10 @@ namespace MyGarageFinderServer
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddHttpClient();
             builder.Services.AddControllers();
+            builder.Services.AddScoped<ApiService>();  // הוספת שירות ה-API
+            builder.Services.AddScoped<GarageService>();  // הוספת שירות ה-Garage
 
             #region Add Database context to Dependency Injection
             //Read connection string from app settings.json

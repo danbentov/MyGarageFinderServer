@@ -55,7 +55,7 @@ CREATE TABLE Garage (
     GarageType NVARCHAR(50),
     GarageAddress NVARCHAR(50),
     City VARCHAR(30),
-    Phone INT,
+    Phone NVARCHAR(50),
     ZipCode INT,
     SpecializationCode INT,
     Specialization NVARCHAR(50),
@@ -116,7 +116,7 @@ CREATE TABLE Appointment (
     FOREIGN KEY (VehicleUserID) REFERENCES VehicleUser(VehicleUserID),
     FOREIGN KEY (StatusID) REFERENCES AppointmentStatus(StatusID)
 );
-Select * from UserStatus
+Select * from Garage
 
 INSERT INTO UserStatus VALUES('User')
 INSERT INTO UserStatus VALUES('Manager')

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.IdentityModel.Tokens;
 using MyGarageFinderServer.DTO;
+using MyGarageFinderServer.GarageAPIReaderService;
 using MyGarageFinderServer.Models;
 using System.Collections.ObjectModel;
 
@@ -15,10 +16,13 @@ public class MyGarageFinderAPIController : ControllerBase
     //a variable that hold a reference to web hosting interface (that provide information like the folder on which the server runs etc...)
     private IWebHostEnvironment webHostEnvironment;
     //Use dependency injection to get the db context and web host into the constructor
-    public MyGarageFinderAPIController(MyGarageFinderDbContext context, IWebHostEnvironment env)
+    private readonly GarageService _garageService;
+
+    public MyGarageFinderAPIController(MyGarageFinderDbContext context, IWebHostEnvironment env, GarageService garageService)
     {
         this.context = context;
         this.webHostEnvironment = env;
+        _garageService = garageService;
     }
 
     [HttpGet]
@@ -217,75 +221,28 @@ public class MyGarageFinderAPIController : ControllerBase
 
 
 
-    //[HttpPost("getCarRepairs")]
-    //public IActionResult GetAllCarRepairs([FromBody] TheGarageManagerServer.DTO.LicensePlateDTO licensePlateDto)
-    //{
-    //    try
-    //    {
-    //        string l = licensePlateDto.LicensePlate;
-    //        ObservableCollection<CarRepair> vehicleRepairs = context.GetRepairs(l);
-    //        ObservableCollection<CarRepairDTO> vehicleRepairsDto = new ObservableCollection<CarRepairDTO>();
-    //        foreach (CarRepair v in vehicleRepairs)
-    //        {
-    //            CarRepairDTO vDto = new CarRepairDTO(v);
-    //            vehicleRepairsDto.Add(vDto);
-    //        }
-    //        return Ok(vehicleRepairsDto);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return BadRequest(ex.Message);
-    //    }
-    //}
+    #region GarageReader
 
-    //public ObservableCollection<CarRepair> GetRepairs(string licensePlate)
-    //{
-    //    ObservableCollection<CarRepair> result = new ObservableCollection<CarRepair>();
-    //    foreach (CarRepair v in this.CarRepairs)
-    //    {
-    //        if (v.LicensePlate == licensePlate)
-    //        {
-    //            result.Add(v);
-    //        }
-    //    }
-    //    return result;
-    //}
+    // פעולה חדשה להוספת נתונים מה-API
+    [HttpPost("import")]
+    public async Task<IActionResult> ImportGarages()
+    {
+        try
+        {
+            // קריאה לשירות שיבצע את הייבוא מה-API
+            await _garageService.ImportGaragesFromApiAsync();
 
-    //public class CarRepairDTO
-    //{
-    //    public int RepairID { get; set; }
-    //    public string LicensePlate { get; set; }
-    //    public int? GarageID { get; set; }
-    //    public DateTime? RepairDate { get; set; }
-    //    public string DescriptionCar { get; set; }
-    //    public int? Cost { get; set; }
+            // החזרת הודעת הצלחה
+            return Ok("Data Imported Successfully!");
+        }
+        catch (Exception ex)
+        {
+            // במקרה של שגיאה, החזרת הודעת שגיאה
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
 
-    //    public CarRepairDTO() { }
-
-    //    public CarRepairDTO(Models.CarRepair modelRepair)
-    //    {
-    //        this.RepairID = modelRepair.RepairId;
-    //        this.LicensePlate = modelRepair.LicensePlate;
-    //        this.GarageID = modelRepair.GarageId;
-    //        this.RepairDate = modelRepair.RepairDate;
-    //        this.DescriptionCar = modelRepair.DescriptionCar;
-    //        this.Cost = modelRepair.Cost;
-    //    }
-
-    //    public Models.CarRepair GetModels()
-    //    {
-    //        Models.CarRepair modelsRepair = new Models.CarRepair()
-    //        {
-    //            RepairId = this.RepairID,
-    //            LicensePlate = this.LicensePlate,
-    //            GarageId = this.GarageID,
-    //            RepairDate = this.RepairDate,
-    //            DescriptionCar = this.DescriptionCar,
-    //            Cost = this.Cost
-    //        };
-    //        return modelsRepair;
-    //    }
-    //}
+    #endregion
 
 
 

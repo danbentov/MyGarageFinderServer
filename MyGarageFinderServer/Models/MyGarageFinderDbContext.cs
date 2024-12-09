@@ -45,7 +45,7 @@ public partial class MyGarageFinderDbContext : DbContext
     {
         modelBuilder.Entity<Appointment>(entity =>
         {
-            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__8ECDFCA2E24F84B1");
+            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__8ECDFCA22579A981");
 
             entity.HasOne(d => d.Garage).WithMany(p => p.Appointments).HasConstraintName("FK__Appointme__Garag__403A8C7D");
 
@@ -56,12 +56,12 @@ public partial class MyGarageFinderDbContext : DbContext
 
         modelBuilder.Entity<AppointmentStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Appointm__C8EE20437F1B2609");
+            entity.HasKey(e => e.StatusId).HasName("PK__Appointm__C8EE20430EABCB64");
         });
 
         modelBuilder.Entity<ChatMessage>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__ChatMess__C87C037C7194F57F");
+            entity.HasKey(e => e.MessageId).HasName("PK__ChatMess__C87C037CE51FD9B0");
 
             entity.HasOne(d => d.Garage).WithMany(p => p.ChatMessages).HasConstraintName("FK__ChatMessa__Garag__33D4B598");
 
@@ -72,24 +72,24 @@ public partial class MyGarageFinderDbContext : DbContext
 
         modelBuilder.Entity<Garage>(entity =>
         {
-            entity.HasKey(e => e.GarageId).HasName("PK__Garage__5D8BEEB1F238DC5A");
+            entity.HasKey(e => e.GarageId).HasName("PK__Garage__5D8BEEB18698023B");
         });
 
         modelBuilder.Entity<GarageImage>(entity =>
         {
-            entity.HasKey(e => e.GarageImageId).HasName("PK__GarageIm__3A316295504CBB03");
+            entity.HasKey(e => e.GarageImageId).HasName("PK__GarageIm__3A316295F3AE979D");
 
             entity.HasOne(d => d.Garage).WithMany(p => p.GarageImages).HasConstraintName("FK__GarageIma__Garag__3B75D760");
         });
 
         modelBuilder.Entity<MessageSender>(entity =>
         {
-            entity.HasKey(e => e.MessageSenderId).HasName("PK__MessageS__229AE8F170D78941");
+            entity.HasKey(e => e.MessageSenderId).HasName("PK__MessageS__229AE8F1BF852FA0");
         });
 
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79AEBE517701");
+            entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79AEB4A4764A");
 
             entity.HasOne(d => d.Garage).WithMany(p => p.Reviews).HasConstraintName("FK__Review__GarageID__38996AB5");
 
@@ -98,24 +98,24 @@ public partial class MyGarageFinderDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACD99C0938");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC5C1DE945");
 
             entity.HasOne(d => d.UserStatus).WithMany(p => p.Users).HasConstraintName("FK__Users__UserStatu__267ABA7A");
         });
 
         modelBuilder.Entity<UserStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__UserStat__C8EE2043C2CC4F9D");
+            entity.HasKey(e => e.StatusId).HasName("PK__UserStat__C8EE2043A1B95409");
         });
 
         modelBuilder.Entity<Vehicle>(entity =>
         {
-            entity.HasKey(e => e.LicensePlate).HasName("PK__Vehicle__026BC15D89CD0711");
+            entity.HasKey(e => e.LicensePlate).HasName("PK__Vehicle__026BC15DB7857B4F");
         });
 
         modelBuilder.Entity<VehicleUser>(entity =>
         {
-            entity.HasKey(e => e.VehicleUserId).HasName("PK__VehicleU__622C917403CFF23F");
+            entity.HasKey(e => e.VehicleUserId).HasName("PK__VehicleU__622C9174D3F51D9A");
 
             entity.HasOne(d => d.User).WithMany(p => p.VehicleUsers).HasConstraintName("FK__VehicleUs__UserI__2C3393D0");
 

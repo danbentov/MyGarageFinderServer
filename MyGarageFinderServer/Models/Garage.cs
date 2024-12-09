@@ -31,7 +31,8 @@ public partial class Garage
     [Unicode(false)]
     public string? City { get; set; }
 
-    public int? Phone { get; set; }
+    [StringLength(50)]
+    public string? Phone { get; set; }
 
     public int? ZipCode { get; set; }
 
