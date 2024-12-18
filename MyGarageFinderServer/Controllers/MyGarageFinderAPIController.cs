@@ -119,7 +119,7 @@ public class MyGarageFinderAPIController : ControllerBase
     {
         try
         {
-            
+
             MyGarageFinderServer.Models.Vehicle modelVehicle = vhDTO.Vehicle.GetVehicle();
             MyGarageFinderServer.Models.User? modelsUser = context.GetUser(vhDTO.User.LicenseNumber);
 
@@ -168,7 +168,7 @@ public class MyGarageFinderAPIController : ControllerBase
             MyGarageFinderServer.Models.User modelsUser = context.GetUser(userDto.LicenseNumber);
             ObservableCollection<Vehicle> userVehicles = context.GetVehicles(modelsUser);
             ObservableCollection<VehicleDTO> userVehiclesDto = new ObservableCollection<VehicleDTO>();
-            foreach(Vehicle v in userVehicles)
+            foreach (Vehicle v in userVehicles)
             {
                 VehicleDTO vDto = new VehicleDTO(v);
                 userVehiclesDto.Add(vDto);
@@ -243,6 +243,68 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
     #endregion
+
+
+    [HttpGet("getallspecialization")]
+    public IActionResult GetAllSpecializations()
+    {
+        try
+        {
+            List<GarageSpecialization> specs = new List<GarageSpecialization>();
+            foreach (Garage g in context.Garages)
+            {
+                GarageSpecialization spec = new GarageSpecialization();
+                spec.Specialization = g.Specialization;
+                spec.SpecializationCode = (int)g.SpecializationCode;
+                specs.Add(spec);
+            }
+            int Maxcode = 0;
+            foreach (GarageSpecialization s in specs)
+            {
+                Maxcode = Math.Max(Maxcode, s.SpecializationCode);
+            }
+            List<GarageSpecialization> newSpecs = new List<GarageSpecialization>();
+            for (int i = 0; i <= Maxcode; i++)
+            {
+                newSpecs.Add((GarageSpecialization)specs.Where(u => u.SpecializationCode == i).FirstOrDefault());
+            }
+            List<GarageSpecialization> Gspecs = new List<GarageSpecialization>();
+            foreach (GarageSpecialization g in newSpecs)
+            {
+                if (g != null)
+                {
+                    Gspecs.Add(g);
+                }
+            }
+            return Ok(Gspecs);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [HttpGet("getallgarages")]
+    public IActionResult GetAllGarages()
+    {
+        try
+        {
+            List<GarageDTO> garages = new List<GarageDTO>();
+            foreach (Garage g in context.Garages)
+            {
+                GarageDTO garage = new GarageDTO(g);
+                garages.Add(garage);
+            }
+            return Ok(garages);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 
 
 
