@@ -20,7 +20,7 @@ namespace MyGarageFinderServer.GarageAPIReaderService
             try
             {
                 var jsonResponse = JsonSerializer.Deserialize<ApiResponse>(response);
-                return jsonResponse?.Result?.Records ?? new List<MosahRecord>();
+                return jsonResponse?.result?.records.ToList();
             }
             catch (JsonException ex)
             {
@@ -30,30 +30,60 @@ namespace MyGarageFinderServer.GarageAPIReaderService
         }
     }
 
+    
+    
+
+    
+
     public class ApiResponse
     {
-        public ApiResult Result { get; set; }
+        public string help { get; set; }
+        public bool success { get; set; }
+        public Result result { get; set; }
     }
 
-    public class ApiResult
+    public class Result
     {
-        public List<MosahRecord> Records { get; set; }
+        public bool include_total { get; set; }
+        public int limit { get; set; }
+        public string records_format { get; set; }
+        public string resource_id { get; set; }
+        public object total_estimation_threshold { get; set; }
+        public MosahRecord[] records { get; set; }
+        public Field[] fields { get; set; }
+        public _Links _links { get; set; }
+        public int total { get; set; }
+        public bool total_was_estimated { get; set; }
+    }
+
+    public class _Links
+    {
+        public string start { get; set; }
+        public string next { get; set; }
     }
 
     public class MosahRecord
     {
-        public int MisparMosah { get; set; }
-        public string ShemMosah { get; set; }
-        public int CodSugMosah { get; set; }
-        public string SugMosah { get; set; }
-        public string Ktovet { get; set; }
-        public string Yishuv { get; set; }
-        public string Telephone { get; set; }
-        public int Mikud { get; set; }
-        public int CodMiktzoa { get; set; }
-        public string Miktzoa { get; set; }
-        public string MenahelMiktzoa { get; set; }
-        public int RashamHavarot { get; set; }
-        public string Testime { get; set; } // שים לב אם מדובר בתאריך, יש לעדכן ל-DATE בטבלה
+        public int _id { get; set; }
+        public int mispar_mosah { get; set; }
+        public string shem_mosah { get; set; }
+        public int cod_sug_mosah { get; set; }
+        public string sug_mosah { get; set; }
+        public string ktovet { get; set; }
+        public string yishuv { get; set; }
+        public string telephone { get; set; }
+        public int mikud { get; set; }
+        public int cod_miktzoa { get; set; }
+        public string miktzoa { get; set; }
+        public string menahel_miktzoa { get; set; }
+        public int rasham_havarot { get; set; }
+        public string TESTIME { get; set; }
     }
+
+    public class Field
+    {
+        public string id { get; set; }
+        public string type { get; set; }
+    }
+
 }

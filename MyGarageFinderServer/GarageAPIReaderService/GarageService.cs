@@ -26,18 +26,18 @@ namespace MyGarageFinderServer.GarageAPIReaderService
             {
                 var garage = new Garage
                 {
-                    GarageNumber = record.MisparMosah,
-                    GarageName = record.ShemMosah,
-                    TypeCode = record.CodSugMosah.ToString(),
-                    GarageType = record.SugMosah,
-                    GarageAddress = record.Ktovet,
-                    City = record.Yishuv,
-                    Phone = record.Telephone,
-                    ZipCode = record.Mikud,
-                    SpecializationCode = record.CodMiktzoa,
-                    Specialization = record.Miktzoa,
-                    GarageManager = record.MenahelMiktzoa,
-                    GarageLicense = record.RashamHavarot,
+                    GarageNumber = record.mispar_mosah,
+                    GarageName = record.shem_mosah,
+                    TypeCode = record.cod_sug_mosah.ToString(),
+                    GarageType = record.sug_mosah,
+                    GarageAddress = record.ktovet,
+                    City = record.yishuv,
+                    Phone = record.telephone,
+                    ZipCode = record.mikud,
+                    SpecializationCode = record.cod_miktzoa,
+                    Specialization = record.miktzoa,
+                    GarageManager = record.menahel_miktzoa,
+                    GarageLicense = record.rasham_havarot,
                     WorkingHours = string.Empty // אם אין נתון לשעות עבודה
                 };
 

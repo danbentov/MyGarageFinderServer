@@ -140,7 +140,7 @@ Insert into VehicleUser values('4444', 2)
 Insert into VehicleUser values('55555', 1)
 Insert into VehicleUser values('55555', 2)
 
-select * from Users
+select * from Garage
 
 -- Create a login for the admin user
 CREATE LOGIN [MyGarageFinderAdminLogin] WITH PASSWORD = 'DAN1706';
