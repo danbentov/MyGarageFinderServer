@@ -24,11 +24,10 @@ public partial class Garage
     [StringLength(50)]
     public string? GarageType { get; set; }
 
-    [StringLength(50)]
+    [StringLength(70)]
     public string? GarageAddress { get; set; }
 
     [StringLength(30)]
-    [Unicode(false)]
     public string? City { get; set; }
 
     [StringLength(50)]

@@ -305,6 +305,59 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
 
+    [HttpPost("geteachonegarageimage")]
+    public IActionResult GetGaragesImages([FromBody] int[] garagesId)
+    {
+        try
+        {
+            List<GarageImageDTO> garagesImages = new List<GarageImageDTO>();
+            foreach (int id in garagesId)
+            {
+                GarageImage img = context.GarageImages.Where(u => u.GarageId == id).FirstOrDefault();
+                GarageImageDTO iDTO = new GarageImageDTO
+                {
+                    GarageID = img.GarageId,
+                    GarageImageID = img.GarageImageId,
+                    ImageURL = img.ImageUrl
+                };
+                garagesImages.Add(iDTO);
+            }
+            return Ok(garagesImages);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [HttpPost("getallreviews")]
+    public IActionResult GetAllReviews()
+    {
+        try
+        {
+            List<ReviewDTO> reviews = new List<ReviewDTO>();
+            foreach (Review r in context.Reviews)
+            {
+                ReviewDTO rdto = new ReviewDTO
+                {
+                    ReviewID = r.ReviewId,
+                    Rating = r.Rating,
+                    ReviewDescription = r.ReviewDescription,
+                    UserID = r.UserId,
+                    GarageID = r.GarageId
+                };
+                reviews.Add(rdto);
+            }
+            return Ok(reviews);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 
 
 
