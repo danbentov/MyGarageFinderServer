@@ -291,11 +291,30 @@ public class MyGarageFinderAPIController : ControllerBase
         try
         {
             List<GarageDTO> garages = new List<GarageDTO>();
+            List<int?> garageSpecializations = new List<int?>();
+            GarageDTO garage = new GarageDTO();
+            int currentLicense = 0; bool sameGarage = false;
             foreach (Garage g in context.Garages)
             {
-                GarageDTO garage = new GarageDTO(g);
-                garages.Add(garage);
+                if (g.GarageLicense != currentLicense)
+                {
+                    if (currentLicense != 0)
+                    {
+                        garage.GarageSpecs = garageSpecializations;
+                        garages.Add(garage);
+                    }
+                    garageSpecializations = new List<int?>();
+                    garage = new GarageDTO(g);
+                    currentLicense = g.GarageLicense;
+                    garageSpecializations.Add(g.SpecializationCode);
+                }
+                else
+                {
+                    garageSpecializations.Add(g.SpecializationCode);
+                }
             }
+            garage.GarageSpecs = garageSpecializations;
+            garages.Add(garage);
             return Ok(garages);
         }
         catch (Exception ex)

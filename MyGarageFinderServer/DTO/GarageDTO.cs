@@ -17,6 +17,8 @@
         public int GarageLicense { get; set; }
         public DateOnly? TestTime { get; set; }
         public string WorkingHours { get; set; }
+   
+        public List<int?> GarageSpecs { get; set; }
 
         public GarageDTO() { }
         public GarageDTO(Models.Garage modelGarage)
