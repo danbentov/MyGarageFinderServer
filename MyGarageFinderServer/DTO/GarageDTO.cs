@@ -19,6 +19,10 @@
         public string WorkingHours { get; set; }
    
         public List<int?> GarageSpecs { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double distance { get; set; }
+
 
         public GarageDTO() { }
         public GarageDTO(Models.Garage modelGarage)
@@ -38,6 +42,9 @@
             this.GarageLicense = modelGarage.GarageLicense;
             this.TestTime = modelGarage.TestTime;
             this.WorkingHours = modelGarage.WorkingHours;
+            this.Latitude = 0;
+            this.Longitude = 0;
+            this.distance = 0;
         }
 
         public Models.Garage GetModels()
