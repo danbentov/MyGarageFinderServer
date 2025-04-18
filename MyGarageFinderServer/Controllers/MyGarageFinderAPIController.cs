@@ -377,6 +377,31 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
 
+    [HttpPost("addreview")]
+    public IActionResult RegisterReview([FromBody] MyGarageFinderServer.DTO.ReviewDTO rDTO)
+    {
+        try
+        {
+
+            MyGarageFinderServer.Models.Review reviewModel = new Review
+            {
+                ReviewDescription = rDTO.ReviewDescription,
+                Rating = rDTO.Rating,
+                UserId = rDTO.UserID,
+                GarageId = rDTO.GarageID,
+                ReviewTimestamp = rDTO.ReviewTimestamp,
+            };
+            
+            context.Reviews.Add(reviewModel);
+            context.SaveChanges();
+
+            return Ok(reviewModel);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
 
 
