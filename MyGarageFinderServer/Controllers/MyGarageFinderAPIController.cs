@@ -350,8 +350,8 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
 
-    [HttpPost("getallreviews")]
-    public IActionResult GetAllReviews()
+    [HttpPost("getallgaragereviews")]
+    public IActionResult GetAllReviews([FromBody] MyGarageFinderServer.DTO.GarageDTO garageDTO)
     {
         try
         {
@@ -366,6 +366,7 @@ public class MyGarageFinderAPIController : ControllerBase
                     UserID = r.UserId,
                     GarageID = r.GarageId
                 };
+                if (rdto.GarageID == garageDTO.GarageID)
                 reviews.Add(rdto);
             }
             return Ok(reviews);
