@@ -405,6 +405,33 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
 
+    [HttpPost("addAppointmentRequest")]
+    public IActionResult RegisterAppointmentRequest([FromBody] MyGarageFinderServer.DTO.AppointmentDTO aDTO)
+    {
+        try
+        {
+
+            MyGarageFinderServer.Models.Appointment appointmentModel = new Appointment
+            {
+                GarageId = aDTO.GarageID,
+                VehicleUserId = aDTO.VehicleUserID,
+                AppointmentDate = aDTO.AppointmentDate,
+                StatusId = aDTO.StatusID,
+                AppoitmentDescription = aDTO.Description
+            };
+
+            context.Appointments.Add(appointmentModel);
+            context.SaveChanges();
+
+            return Ok(appointmentModel);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 
 
 }
