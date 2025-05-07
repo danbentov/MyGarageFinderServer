@@ -18,6 +18,7 @@ public partial class MyGarageFinderDbContext : DbContext
         return this.Vehicles.Where(v => v.LicensePlate ==  licenseNumber)
             .FirstOrDefault();
     }
+    
 
     public ObservableCollection<Vehicle> GetVehicles(User modelUser)
     {
@@ -36,4 +37,18 @@ public partial class MyGarageFinderDbContext : DbContext
         }
         return result;
     }
+
+    public ObservableCollection<VehicleUser> GetUserVehicles(User modelUser)
+    {
+        ObservableCollection<VehicleUser> result = new ObservableCollection<VehicleUser>();
+        foreach (VehicleUser v in this.VehicleUsers)
+        {
+            if (v.User.UserId == modelUser.UserId)
+            {
+                result.Add(v);
+            }
+        }
+        return result;
+    }
+
 }

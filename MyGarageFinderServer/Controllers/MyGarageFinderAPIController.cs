@@ -432,6 +432,29 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
 
+    [HttpGet("getVehicleUser")]
+    public IActionResult GetVehicleUser([FromBody] MyGarageFinderServer.DTO.VehicleUserDTO vuDTO)
+    {
+        try
+        {
+            VehicleUserDTO vu = new VehicleUserDTO();
+            foreach (VehicleUser item in context.VehicleUsers)
+            {
+                if (item.UserId == vuDTO.User.UserId && item.VehicleId == vuDTO.Vehicle.LicensePlate)
+                {
+                     vu = new VehicleUserDTO(item);
+                    
+                }
+            }
+            return Ok(vu);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 
 
 }
