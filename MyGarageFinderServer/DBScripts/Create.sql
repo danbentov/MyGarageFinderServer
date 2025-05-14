@@ -140,6 +140,12 @@ Insert into VehicleUser values('4444', 2)
 Insert into VehicleUser values('55555', 1)
 Insert into VehicleUser values('55555', 2)
 
+insert into Review Values(3, 'Amazing garage',2,1,'2025-05-15T10:00:00')
+insert into Review Values(5, 'great garage',2,1,'2025-05-15T10:00:00')
+insert into Review Values(1, 'not good garage',2,1,'2025-05-15T10:00:00')
+
+
+
 select * from Garage
 
 -- Create a login for the admin user
@@ -156,3 +162,5 @@ Go
 
 -- scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=MyGarageFinderDB;User ID=MyGarageFinderAdminLogin;Password=DAN1706;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context MyGarageFinderDbContext -DataAnnotations –force
 
+select * from Users
+select * from Garage
