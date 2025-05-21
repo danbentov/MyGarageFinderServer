@@ -457,4 +457,37 @@ public class MyGarageFinderAPIController : ControllerBase
 
 
 
+
+    #region ori
+
+
+    [HttpGet("getPendingAppointments")]
+    public IActionResult GetPendingAppointments()
+    {
+        try
+        {
+            List<AppointmentDTO> pendingAppointments = new List<AppointmentDTO>();
+
+            foreach (Appointment appointment in context.Appointments)
+            {
+                // נשלוף את שם הסטטוס דרך הניווט או ע"י השוואת ה-ID לערך המתאים
+                var status = context.AppointmentStatuses.FirstOrDefault(s => s.StatusId == appointment.StatusId);
+
+                if (status != null && status.StatusName.ToLower() == "pending")
+                {
+                    pendingAppointments.Add(new AppointmentDTO(appointment));
+                }
+            }
+
+            return Ok(pendingAppointments);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    #endregion
+
+
 }
