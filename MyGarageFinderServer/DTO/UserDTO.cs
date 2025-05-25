@@ -10,6 +10,7 @@
         public string UserPassword { get; set; } = null!; 
         public int? UserStatusId { get; set; }
         public int? GarageLicense { get; set; }
+        public string ProfileImagePath { get; set; } = "";
 
         public UserDTO() { }
         public UserDTO(Models.User modelUser)

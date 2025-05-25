@@ -13,7 +13,7 @@ namespace MyGarageFinderServer.GarageAPIReaderService
 
         public async Task<List<MosahRecord>> GetApiData(string apiUrl, string resourceId)
         {
-            var queryParams = $"?resource_id={resourceId}&limit=400"; // אפשר לשנות את ה-limit
+            var queryParams = $"?resource_id={resourceId}&limit=150"; // אפשר לשנות את ה-limit
             var response = await _httpClient.GetStringAsync(apiUrl + queryParams);
 
             // שימוש ב-System.Text.Json להמיר את ה-JSON
