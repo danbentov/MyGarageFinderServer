@@ -14,7 +14,7 @@
         public int? SpecializationCode { get; set; }
         public string Specialization { get; set; }
         public string GarageManager { get; set; }
-        public int GarageLicense { get; set; }
+        public string GarageLicense { get; set; }
         public DateOnly? TestTime { get; set; }
         public string WorkingHours { get; set; }
    

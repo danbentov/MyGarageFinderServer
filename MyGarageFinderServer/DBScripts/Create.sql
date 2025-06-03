@@ -60,7 +60,7 @@ CREATE TABLE Garage (
     SpecializationCode INT,
     Specialization NVARCHAR(50),
     GarageManager NVARCHAR(50),
-    GarageLicense INT NOT NULL,
+    GarageLicense NVARCHAR(70) NOT NULL,
     TestTime DATE,
     WorkingHours NVARCHAR(50)
 );

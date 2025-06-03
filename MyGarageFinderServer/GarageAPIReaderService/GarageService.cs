@@ -37,7 +37,7 @@ namespace MyGarageFinderServer.GarageAPIReaderService
                     SpecializationCode = record.cod_miktzoa,
                     Specialization = record.miktzoa,
                     GarageManager = record.menahel_miktzoa,
-                    GarageLicense = record.rasham_havarot,
+                    GarageLicense = record.rasham_havarot.ToString(),
                     WorkingHours = string.Empty // אם אין נתון לשעות עבודה
                 };
 
@@ -73,7 +73,7 @@ namespace MyGarageFinderServer.GarageAPIReaderService
                     SpecializationCode = record.cod_miktzoa,
                     Specialization = record.miktzoa,
                     GarageManager = record.menahel_miktzoa,
-                    GarageLicense = record.rasham_havarot,
+                    GarageLicense = record.rasham_havarot.ToString(),
                     WorkingHours = string.Empty // אם אין נתון לשעות עבודה
                 };
 
