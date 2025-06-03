@@ -433,19 +433,32 @@ public class MyGarageFinderAPIController : ControllerBase
 
 
     [HttpGet("getVehicleUser")]
-    public IActionResult GetVehicleUser([FromBody] MyGarageFinderServer.DTO.VehicleUserDTO vuDTO)
+    public IActionResult GetVehicleUser([FromQuery] string selectedVehicle, [FromQuery] int? selectedUser)
     {
         try
         {
-            VehicleUserDTO vu = new VehicleUserDTO();
-            foreach (VehicleUser item in context.VehicleUsers)
+            VehicleUser vvuu = context.VehicleUsers.Where(vvuu => vvuu.UserId == selectedUser && vvuu.VehicleId == selectedVehicle).FirstOrDefault();
+
+            //foreach (VehicleUser item in context.VehicleUsers)
+            //{
+            //    if (item.UserId == selectedUser  && item.VehicleId == selectedVehicle)
+            //    {
+            //        vu = new VehicleUserDTO();
+            //        User u = context.Users.Where(u => u.UserId == selectedUser).FirstOrDefault();
+            //        Vehicle v = context.Vehicles.Where(v => v.LicensePlate == selectedVehicle).FirstOrDefault();
+            //        vu.User = new UserDTO(u);
+            //        vu.Vehicle = new VehicleDTO(v);
+
+
+            //    }
+            //}
+
+            VehicleUserDTO vu = new VehicleUserDTO
             {
-                if (item.UserId == vuDTO.User.UserId && item.VehicleId == vuDTO.Vehicle.LicensePlate)
-                {
-                     vu = new VehicleUserDTO(item);
-                    
-                }
-            }
+                VehicleUserID = vvuu.VehicleUserId,
+                User = new UserDTO(context.Users.Where(u => u.UserId == selectedUser).FirstOrDefault()),
+                Vehicle = new VehicleDTO(context.Vehicles.Where(v => v.LicensePlate == selectedVehicle).FirstOrDefault())
+            };
             return Ok(vu);
         }
         catch (Exception ex)
