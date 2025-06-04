@@ -115,13 +115,13 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
     [HttpPost("registervehicle")]
-    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleUserDTO vhDTO)
+    public IActionResult RegisterVehicle([FromBody] MyGarageFinderServer.DTO.VehicleDTO vDTO, [FromQuery] string selectedUser)
     {
         try
         {
 
-            MyGarageFinderServer.Models.Vehicle modelVehicle = vhDTO.Vehicle.GetVehicle();
-            MyGarageFinderServer.Models.User? modelsUser = context.GetUser(vhDTO.User.LicenseNumber);
+            MyGarageFinderServer.Models.Vehicle modelVehicle = vDTO.GetVehicle();
+            MyGarageFinderServer.Models.User? modelsUser = context.GetUser(selectedUser);
 
             bool vehicleExist = false;
             foreach (Vehicle v in context.Vehicles)
