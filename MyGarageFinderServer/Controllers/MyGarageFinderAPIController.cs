@@ -378,6 +378,25 @@ public class MyGarageFinderAPIController : ControllerBase
     }
 
 
+
+    [HttpGet("getallusers")]
+    public IActionResult GetAllUsers()
+    {
+        try
+        {
+            var users = context.Users
+                .Select(u => new UserDTO(u))
+                .ToList();
+
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
     [HttpPost("addreview")]
     public IActionResult RegisterReview([FromBody] MyGarageFinderServer.DTO.ReviewDTO rDTO)
     {
@@ -403,6 +422,9 @@ public class MyGarageFinderAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    
+
 
 
     [HttpPost("addAppointmentRequest")]

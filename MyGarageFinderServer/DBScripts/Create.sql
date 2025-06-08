@@ -116,7 +116,7 @@ CREATE TABLE Appointment (
     FOREIGN KEY (VehicleUserID) REFERENCES VehicleUser(VehicleUserID),
     FOREIGN KEY (StatusID) REFERENCES AppointmentStatus(StatusID)
 );
-select * from Users
+select * from garage
 
 INSERT INTO UserStatus VALUES('User')
 INSERT INTO UserStatus VALUES('Manager')
