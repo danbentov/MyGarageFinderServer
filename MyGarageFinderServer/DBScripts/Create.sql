@@ -164,3 +164,4 @@ Go
 
 select * from VehicleUser
 select * from Vehicle
+
